@@ -2,9 +2,9 @@ module.exports = {
     /*
     * First five parameters are for MySQL connection.
     */
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "",
+    HOST: "localhost", // kalo pake docker ubah ke mysql_server
+    USER: "root", // kalo pake docker ubah ke "dan"
+    PASSWORD: "", // kalo pake docker ubah ke "secret"
     DB: "test_db",
     dialect: "mysql",
     pool: {
