@@ -31,9 +31,6 @@ const signin = (req, res) => {
       }
     })
       .then(user => {
-        // if (!user) {
-        //   return res.status(404).send({ message: "User Not found." });
-        // }
   
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,

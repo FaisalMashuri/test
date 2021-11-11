@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 
 exports.uploadImg = multer({storage: storage}).single('img_url');
 
-// Create and Save a new Post
+
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
@@ -31,19 +31,19 @@ exports.create = (req, res) => {
         price: req.body.price
     };
 
-    // Save Post in the database
+    // Save Product in the database
     Product.create(product)
         .then((data) => {
             res.send(data);
         }).catch((err) => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Post."
+                    err.message || "Some error occurred while creating the Product."
             })
         });
 };
 
-// Retrieve all Posts from the database.
+// Retrieve all Products from the database.
 exports.findAll = (req, res) => {
     const title = req.query.title;
     let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -54,12 +54,12 @@ exports.findAll = (req, res) => {
         }).catch((err) => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occured while find post"
+                    err.message || "Some error occured while find Product"
             });
         });
 };
 
-// Find a single Post with an id
+// Find a single Product with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -68,12 +68,12 @@ exports.findOne = (req, res) => {
             res.send(data);
         }).catch((err) => {
             res.status(500).send({
-                message: "Error retrieving post with id=" + id
+                message: "Error retrieving Product with id=" + id
             });
         });
 };
 
-// Update a Post by the id in the request
+// Update a Product by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
     console.log(req.body)
@@ -82,21 +82,21 @@ exports.update = (req, res) => {
     }).then((result) => {
         if ( result == 1 ) {
             res.send({
-                message: "Post was updated successfully"
+                message: "Product was updated successfully"
             });
         } else {
             res.send({
-                message: `${result} Cannot update Post with id=${id}.`
+                message: `${result} Cannot update Product with id=${id}.`
             })
         }
     }).catch((err) => {
         res.status(500).send({
-            message: "Error updating post with id=" + id
+            message: "Error updating Product with id=" + id
         })
     });
 };
 
-// Delete a Post with the specified id in the request
+// Delete a Product with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -105,33 +105,33 @@ exports.delete = (req, res) => {
     }).then((result) => {
         if (result == 1) {
             res.send({
-                message: "Post was deleted successfully"
+                message: "Product was deleted successfully"
             })
         } else {
             res.send({
-                message: `Cannot delete post with id=${id}`
+                message: `Cannot delete Product with id=${id}`
             })
         }
     }).catch((err) => {
         res.status(500).send({
-            message: "Could not delete post with id=" + id
+            message: "Could not delete Product with id=" + id
         })
     });
 };
 
-// Delete all Posts from the database.
+// Delete all Products from the database.
 exports.deleteAll = (req, res) => {
     Product.destroy({
         where: {},
         truncate: false
     }).then((result) => {
         res.send({
-            message: `${result} Posts were deleted successfully!`
+            message: `${result} Products were deleted successfully!`
         });
     }).catch((err) => {
         res.status(500).send({
             message: 
-                err.message || "Some error occurred while removing all posts."
+                err.message || "Some error occurred while removing all Products."
         });
     });
 
